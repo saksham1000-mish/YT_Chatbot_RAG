@@ -2,7 +2,7 @@ from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled
 from langchain_huggingface import HuggingFaceEmbeddings
 from dotenv import load_dotenv
 import os
-from langchain_classic.text_splitter import RecursiveCharacterTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 
 load_dotenv()
