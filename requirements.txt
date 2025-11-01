@@ -4,6 +4,7 @@ langchain-core-0.2.38
 langchain-community-0.2.11
 langchain-google-genai-1.0.7
 langchain_huggingface
+sentence-transformers
 google-generativeai
 faiss-cpu
 python-dotenv

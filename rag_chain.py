@@ -1,47 +1,48 @@
 import os
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_classic.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import FAISS
-from langchain_core.prompts import PromptTemplate
-from youtube_utils import get_youtube_transcript
+from langchain_core.prompts import ChatPromptTemplate
+from langchain.chains.combine_documents.stuff import create_stuff_documents_chain
+from langchain.chains import create_retrieval_chain
 
 load_dotenv()
 
-
-embedding_model = HuggingFaceEmbeddings(
-    model_name = os.getenv("HF_EMBEDDING_MODEL")
-)
 
 llm = ChatGoogleGenerativeAI(
         model = os.getenv("GOOGLE_MODEL"),
         temperature = 0.4
     )
 
+def get_rag_chain(vector_store):
+ 
+    template = """You are a helpful AI assistant that helps people find information about YouTube videos based on their transcripts. Use the following pieces of context to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer. 
 
-def text_splitter(transcript):
+    {context}
 
-    splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000,
-        chunk_overlap=200
-        )
-    chunks = splitter.create_documents([transcript])
-    return chunks
-
-def vector_store(chunks):
-
-    vectorstore = FAISS.from_documents(
-        documents=chunks,
-        embedding=embedding_model
+    Question: {input}
+    Helpful Answer:"""
+    
+    prompt = ChatPromptTemplate.from_template(template)
+    
+    retriever = vector_store.as_retriever(
+        search_type="similarity",
+        search_kwargs={"k": 4}
     )
-    return vectorstore
+
+    stuff_documents_chain = create_stuff_documents_chain(
+        llm=llm,
+        prompt=prompt
+    )
+    
+    retrieval_chain = create_retrieval_chain(
+        retriever=retriever,
+        combine_docs_chain=stuff_documents_chain
+    )
+    
+
+    return retrieval_chain
 
 
-transcript = get_youtube_transcript("dQw4w9WgXcQ")
-chunks = text_splitter(transcript)
-vectorstore = vector_store(chunks)
-print(vectorstore.index_to_docstore_id)
 
 
     
