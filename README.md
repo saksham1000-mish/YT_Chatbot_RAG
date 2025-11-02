@@ -18,15 +18,15 @@ A Streamlit web application that allows you to have a conversation with any YouT
 
 ## How It Works
 
-1.  **URL Input:** The user provides a YouTube video URL in the Streamlit sidebar.
+1.  **URL Input:** The user provides a YouTube video URL in the sidebar.
 2.  **Transcript Fetching:** The application extracts the video ID and uses the `youtube-transcript-api` library to download the video's transcript ([`get_youtube_transcript`](youtube_utils.py)).
 3.  **Text Chunking:** The transcript is split into smaller, manageable chunks using LangChain's `RecursiveCharacterTextSplitter` ([`create_vector_store`](youtube_utils.py)).
-4.  **Embedding Generation:** Each chunk is converted into a numerical representation (embedding) using a Hugging Face Sentence Transformer model ([`embedding_model`](youtube_utils.py)).# Chat with YouTube
+4.  **Embedding Generation:** Each chunk is converted into a numerical representation (embedding) using a Hugging Face Sentence Transformer model ([`embedding_model`](youtube_utils.py)).
 5.  **Vector Store Creation:** The embeddings are stored in a FAISS vector store, which allows for fast similarity searches ([`create_vector_store`](youtube_utils.py)).
 6.  **RAG Chain:** When a user asks a question:
     *   The vector store is used as a **Retriever** to find the most relevant transcript chunks related to the query.
     *   A **Prompt Template** formats the user's question and the retrieved chunks.
-    *   The formatted prompt is sent to a **Google Generative AI model** (like Gemini) to generate a final, helpful answer ([`get_rag_chain`](rag_chain.py)).
+    *   The formatted prompt is sent to a **Google Generative AI model** (Gemini-2.5-pro) to generate a final, helpful answer ([`get_rag_chain`](rag_chain.py)).
 7.  **Display:** The user's question and the AI's answer are displayed in the chat interface ([`app.py`](app.py)).
 
 ## Tech Stack
