@@ -27,10 +27,10 @@ except FileNotFoundError:
         page_title="Chat with YouTube",
         page_icon="▶️"
     )
-col1, col2 = st.columns([2, 4])
+col1, col2 = st.columns([1, 4])
 
 with col1:
-    st.image(removed_bg, width=100)
+    st.image(removed_bg, width=200)
 
 with col2:
     st.title("Chat with any YouTube Video")
