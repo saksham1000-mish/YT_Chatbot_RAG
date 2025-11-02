@@ -27,7 +27,7 @@ except FileNotFoundError:
         page_title="Chat with YouTube",
         page_icon="▶️"
     )
-col1, col2 = st.columns([1, 4])
+col1, col2 = st.columns([1, 5])
 
 with col1:
     st.image(removed_bg, width=200)
