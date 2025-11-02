@@ -13,7 +13,7 @@ def get_video_id(url: str) -> str:
     match = re.search(pattern, url)
     return match.group(1) if match else None
 
-logo = "assets/logo.jpeg"
+logo = "assets/logo.jpg"
 removed_bg = "assets/logo-removebg.png"
 
 try:
