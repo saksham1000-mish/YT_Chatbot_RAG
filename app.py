@@ -27,8 +27,8 @@ except FileNotFoundError:
         page_title="Chat with YouTube",
         page_icon="▶️"
     )
-st.title("Chat with any YouTube Video")
 st.image(removed_bg, width=100)
+st.title("Chat with any YouTube Video")
 
 if "vector_store" not in st.session_state:
     st.session_state.vector_store = None
