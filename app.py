@@ -28,6 +28,7 @@ except FileNotFoundError:
         page_icon="▶️"
     )
 st.title("▶️ Chat with any YouTube Video")
+st.image(removed_bg, width=100)
 
 if "vector_store" not in st.session_state:
     st.session_state.vector_store = None
@@ -35,7 +36,7 @@ if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
 with st.sidebar:
-    st.image(logo, width=150)
+    st.image(removed_bg, width=150)
     st.header("Video Processing")
     youtube_url = st.text_input("Enter YouTube Video URL:", key="youtube_url")
     
