@@ -15,7 +15,20 @@ A Streamlit web application that allows you to have a conversation with any YouT
 1.  **URL Input:** The user provides a YouTube video URL in the Streamlit sidebar.
 2.  **Transcript Fetching:** The application extracts the video ID and uses the `youtube-transcript-api` library to download the video's transcript ([`get_youtube_transcript`](youtube_utils.py)).
 3.  **Text Chunking:** The transcript is split into smaller, manageable chunks using LangChain's `RecursiveCharacterTextSplitter` ([`create_vector_store`](youtube_utils.py)).
-4.  **Embedding Generation:** Each chunk is converted into a numerical representation (embedding) using a Hugging Face Sentence Transformer model ([`embedding_model`](youtube_utils.py)).
+4.  **Embedding Generation:** Each chunk is converted into a numerical representation (embedding) using a Hugging Face Sentence Transformer model ([`embedding_model`](youtube_utils.py)).# Chat with YouTube
+
+[**Live Demo**](https://yt-transcriptai.streamlit.app/)
+
+A Streamlit web application that allows you to have a conversation with any YouTube video. Simply provide the video URL, and the app will fetch its transcript, process it, and let you ask questions about its content. This project leverages a Retrieval-Augmented Generation (RAG) pipeline to provide accurate, context-aware answers based on the video's transcript.
+
+## Screenshot
+
+![Chat with YouTube Screenshot](website-ss.png)
+
+## Features
+
+*   **YouTube Video Integration:** Accepts any public YouTube video URL.
+// ...existing code...
 5.  **Vector Store Creation:** The embeddings are stored in a FAISS vector store, which allows for fast similarity searches ([`create_vector_store`](youtube_utils.py)).
 6.  **RAG Chain:** When a user asks a question:
     *   The vector store is used as a **Retriever** to find the most relevant transcript chunks related to the query.
